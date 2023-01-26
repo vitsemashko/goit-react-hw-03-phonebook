@@ -17,8 +17,11 @@ class App extends Component {
     name: '',
     number: '',
   };
-  componentDidUpdate() {
-    localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+  componentDidUpdate(prevProps, prevState) {
+    const { contacts } = this.state;
+    if (prevState.contacts.length !== contacts.length) {
+      localStorage.setItem('contacts', JSON.stringify(contacts));
+    }
   }
   componentDidMount(prevState) {
     const contacts = localStorage.getItem('contacts');
